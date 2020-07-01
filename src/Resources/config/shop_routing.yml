@@ -1,17 +1,4 @@
 # Delete these routes and define your own shop routes here
-
-vanssa_address_field_per_country_plugin_static_welcome:
-    path: /static-welcome/{name}
-    defaults:
-        _controller: VanssaAddressFieldPerCountryPlugin:Greeting:staticallyGreet
-        name: ~
-
-vanssa_address_field_per_country_plugin_welcome:
-    path: /dynamic-welcome/{name}
-    defaults:
-        _controller: VanssaAddressFieldPerCountryPlugin:Greeting:dynamicallyGreet
-        name: ~
-
 sylius_ajax_render_added_field_form:
     path: /sylius_ajax_render_added_field_form
     defaults:

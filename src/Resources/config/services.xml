@@ -47,6 +47,10 @@
                 <argument type="service" id="service_container"/>
             </call>
         </service>
-
+        <service id="vanssa.address_field_per_country_plugin.layout.javascripts"
+                 class="Sylius\Bundle\UiBundle\Block\BlockEventListener">
+            <argument>@VanssaAddressFieldPerCountryPlugin/_javascripts.html.twig</argument>
+            <tag name="kernel.event_listener" event="sonata.block.event.sylius.shop.layout.javascripts" method="onBlockEvent" />
+        </service>
     </services>
 </container>
