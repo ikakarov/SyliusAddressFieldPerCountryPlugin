@@ -1,0 +1,10 @@
+{% extends '@SyliusAdmin/Form/theme.html.twig' %}
+{% block address_field_per_country_type_widget %}
+<div class="ui compact segment">
+    <div class="inline fields">
+        {{ form_row(form.code) }}
+        {{ form_row(form.label) }}
+        {{ form_row(form.has_required) }}
+    </div>
+</div>
+{% endblock %}

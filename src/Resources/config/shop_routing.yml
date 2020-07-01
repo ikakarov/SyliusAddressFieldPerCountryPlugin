@@ -1,13 +1,20 @@
 # Delete these routes and define your own shop routes here
 
-acme_sylius_example_static_welcome:
+vanssa_address_field_per_country_plugin_static_welcome:
     path: /static-welcome/{name}
     defaults:
-        _controller: AcmeSyliusExamplePlugin:Greeting:staticallyGreet
+        _controller: VanssaAddressFieldPerCountryPlugin:Greeting:staticallyGreet
         name: ~
 
-acme_sylius_example_dynamic_welcome:
+vanssa_address_field_per_country_plugin_welcome:
     path: /dynamic-welcome/{name}
     defaults:
-        _controller: AcmeSyliusExamplePlugin:Greeting:dynamicallyGreet
+        _controller: VanssaAddressFieldPerCountryPlugin:Greeting:dynamicallyGreet
         name: ~
+
+sylius_ajax_render_added_field_form:
+    path: /sylius_ajax_render_added_field_form
+    defaults:
+        _controller: vanssa.address_field_per_country_plugin.controller.custom_address_field_controller:choiceOrTextFieldFormAction
+        _sylius:
+            template: "@SyliusAdmin/Common/Form/_province.html.twig"

@@ -1,7 +1,52 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+<imports>
+    <import resource="resource.yaml"/>
+</imports>
     <services>
-        <!-- Put your services here -->
+        <service id="Vanssa\AddressFieldPerCountryPlugin\From\Admin\AddCustomFieldCollectionTypeExtension">
+            <tag name="form.type_extension"/>
+        </service>
+
+        <service id="Vanssa\AddressFieldPerCountryPlugin\From\Extension\AddressTypeExtensions">
+            <tag name="form.type_extension"/>
+            <argument type="service">
+                <service class="Vanssa\AddressFieldPerCountryPlugin\From\EventListener\BuildAddressFormSubscriber">
+                    <argument type="service" id="sylius.repository.country" />
+                    <argument type="service" id="form.factory" />
+                </service>
+            </argument>
+        </service>
+
+        <service id="vanssa.address_field_per_country_plugin.controller.custom_address_field_controller" class="Vanssa\AddressFieldPerCountryPlugin\Controller\CustomAddressFieldController" public="true">
+            <tag name="controller.service_arguments"/>
+            <argument type="service">
+                <service class="Sylius\Component\Resource\Metadata\Metadata">
+                    <argument>sylius.province</argument>
+                    <factory service="sylius.resource_registry" method="get"/>
+                </service>
+            </argument>
+            <argument type="service" id="sylius.resource_controller.request_configuration_factory"/>
+            <argument type="service" id="sylius.resource_controller.view_handler"/>
+            <argument type="service" id="sylius.repository.province"/>
+            <argument type="service" id="sylius.factory.province"/>
+            <argument type="service" id="sylius.resource_controller.new_resource_factory"/>
+            <argument type="service" id="doctrine.orm.default_entity_manager"/>
+            <argument type="service" id="sylius.resource_controller.single_resource_provider"/>
+            <argument type="service" id="sylius.resource_controller.resources_collection_provider"/>
+            <argument type="service" id="sylius.resource_controller.form_factory"/>
+            <argument type="service" id="sylius.resource_controller.redirect_handler"/>
+            <argument type="service" id="sylius.resource_controller.flash_helper"/>
+            <argument type="service" id="sylius.resource_controller.authorization_checker.disabled"/>
+            <argument type="service" id="sylius.resource_controller.event_dispatcher"/>
+            <argument type="service" id="sylius.resource_controller.state_machine"/>
+            <argument type="service" id="sylius.custom_resource_controller.resource_update_handler"/>
+            <argument type="service" id="sylius.resource_controller.resource_delete_handler"/>
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+
     </services>
 </container>

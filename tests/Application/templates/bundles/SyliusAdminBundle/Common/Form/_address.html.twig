@@ -1,0 +1,33 @@
+<div class="two fields">
+    {{ form_row(form.firstName) }}
+    {{ form_row(form.lastName) }}
+</div>
+{{ form_row(form.company) }}
+{{ form_row(form.street) }}
+{{ form_row(form.countryCode) }}
+<div class="province-container field" data-url="{{ path('sylius_admin_ajax_render_province_form') }}">
+    {% if form.provinceCode is defined %}
+        {{ form_row(form.provinceCode, {'attr': {'class': 'ui dropdown'}}) }}
+    {% endif %}
+</div>
+
+<div class="js-added-field-container field"
+        {% if form.vars.data.additionalFields is defined %}
+            data-additional-fields-data="{{ form.vars.data.additionalFields|json_encode }}"
+        {% endif %}
+
+     data-base-country-code="{{ form.vars.data.countryCode|default('') }}"
+     data-no-init="{{ form.additional_fields is defined  }}"
+     data-url="{{ path('sylius_ajax_render_added_field_form') }}">
+
+    {% if form.additional_fields is defined %}
+        {{ form_row(form.additional_fields,{'label':false}) }}
+    {% endif %}
+
+</div>
+
+<div class="two fields">
+    {{ form_row(form.city) }}
+    {{ form_row(form.postcode) }}
+</div>
+{{ form_row(form.phoneNumber) }}

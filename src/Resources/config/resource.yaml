@@ -1,0 +1,5 @@
+sylius_addressing:
+    resources:
+        country:
+            classes:
+                model: Vanssa\AddressFieldPerCountryPlugin\Entity\Country

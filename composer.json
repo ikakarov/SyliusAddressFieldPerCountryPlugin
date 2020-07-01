@@ -1,13 +1,13 @@
 {
-    "name": "sylius/plugin-skeleton",
+    "name": "sylius/sylius-address-field-per-country-plugin",
     "type": "sylius-plugin",
     "keywords": ["sylius", "sylius-plugin"],
-    "description": "Acme example plugin for Sylius.",
+    "description": "Add custom address fields per country for regulation and charging.",
     "license": "MIT",
     "require": {
         "php": "^7.2",
-
-        "sylius/sylius": "^1.6"
+        "sylius/sylius": "1.6.8",
+        "doctrine/inflector": "1.3.*"
     },
     "require-dev": {
         "behat/behat": "^3.4",
@@ -37,16 +37,56 @@
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
-            "Acme\\SyliusExamplePlugin\\": "src/",
-            "Tests\\Acme\\SyliusExamplePlugin\\": "tests/"
+            "Vanssa\\AddressFieldPerCountryPlugin\\": "src/",
+            "Tests\\Vanssa\\AddressFieldPerCountryPlugin\\": "tests/"
         }
     },
     "autoload-dev": {
         "classmap": ["tests/Application/Kernel.php"]
     },
+    "scripts": {
+        "installAll": [
+            "composer install",
+            "@theme-update",
+            "@fixtures"
+        ],
+        "theme-update": [
+            "(cd tests/Application && yarn install)",
+            "(cd tests/Application && yarn build --dev)",
+            "(cd tests/Application && bin/console assets:install public --relative --symlink -e dev)"
+        ],
+        "fixtures": [
+            "(cd tests/Application && bin/console doctrine:database:create -e dev)",
+            "(cd tests/Application && bin/console doctrine:schema:create -e dev)",
+            "(cd tests/Application && bin/console sylius:fixtures:load -e dev -q )"
+        ],
+        "run-web": [
+            "(cd tests/Application && bin/console server:start -d public -e dev )",
+            "@c-c"
+        ],
+        "c-c": [
+            "@cache-clear"
+        ],
+        "mig": [
+            "(cd tests/Application && bin/console doctrine:schema:upd -f -e dev )",
+            "@cache-clear"
+        ]
+    },
     "extra": {
         "branch-alias": {
             "dev-master": "1.6-dev"
+        }
+    },
+    "config": {
+        "conflict": {
+            "doctrine/inflector": "^1.4"
+        },
+        "process-timeout": 0,
+        "preferred-install": {
+            "*": "dist"
+        },
+        "platform": {
+            "php": "7.3.16"
         }
     }
 }

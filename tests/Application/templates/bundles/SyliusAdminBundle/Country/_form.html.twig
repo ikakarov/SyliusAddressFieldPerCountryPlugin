@@ -1,0 +1,15 @@
+{% form_theme form "@VanssaAddressFieldPerCountryPlugin/Admin/Form/Country/_country_form_theme.html.twig" %}
+<div class="ui segment">
+    {{ form_errors(form) }}
+    {{ form_row(form.code) }}
+    {{ form_row(form.enabled) }}
+</div>
+<div class="ui segment">
+    <h4 class="ui dividing header">{{ 'Custom Address Field Per Country'|trans }}</h4>
+
+        {{ form_widget(form.additional_fields) }}
+</div>
+<div class="ui segment">
+    <h4 class="ui dividing header">{{ 'sylius.ui.provinces'|trans }}</h4>
+    {{ form_row(form.provinces, {'label': false}) }}
+</div>
